@@ -1,0 +1,5 @@
+tencent_cloud_secretkey
+test
+log.*
+WavOutput/*
+__pycache__
