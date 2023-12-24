@@ -1,5 +1,5 @@
 tencent_cloud_secretkey
-test
+test*
 log.*
 WavOutput/*
 __pycache__

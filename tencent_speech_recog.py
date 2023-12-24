@@ -26,9 +26,9 @@ def init():
 # files = [f for f in os.listdir(path) if f.endswith(".ogg")]
     
 def _translate_ogg(oggfile, ignore_er = False) -> str:
-    from convert2wav import convert2wav
+    from convert2wav import ogg2wav
     try:
-        with open(convert2wav(oggfile), "rb") as f:
+        with open(ogg2wav(oggfile), "rb") as f:
             data = f.read()
         data = base64.b64encode(data).decode()
         req = models.SentenceRecognitionRequest()
