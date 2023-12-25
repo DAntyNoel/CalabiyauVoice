@@ -4,3 +4,4 @@ log.*
 WavOutput/*
 __pycache__
 db.ini
+__init__.py
