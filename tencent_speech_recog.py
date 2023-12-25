@@ -3,12 +3,12 @@ import os, time, logging, traceback
 from tencentcloud.common import credential
 from tencentcloud.common.profile.client_profile import ClientProfile
 from tencentcloud.asr.v20190614 import asr_client, models
+from Config import config
 
 import logging
 logging.basicConfig(filename="log.txt", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
-thisdir = os.path.dirname(__file__)
-
+thisdir = config.get("DEFAULT", "thisdir")
 def init():
     global client
     with open(os.path.join(thisdir, 'tencent_cloud_secretkey'), 'r') as f:
@@ -25,7 +25,7 @@ def init():
 # recog_path = "RecogOutput"
 # files = [f for f in os.listdir(path) if f.endswith(".ogg")]
     
-def _translate_ogg(oggfile, ignore_er = False) -> str:
+def _translate_ogg(oggfile, ignore_er = False) -> str|None:
     from convert2wav import ogg2wav
     try:
         with open(ogg2wav(oggfile), "rb") as f:
@@ -51,7 +51,7 @@ def _translate_ogg(oggfile, ignore_er = False) -> str:
         else:
             logging.error("%s\n%s" % (e, traceback.format_exc()))
 
-def translate_wav(wavfile, ignore_er = False) -> str:
+def translate_wav(wavfile, ignore_er = False) -> str|None:
     try:
         with open(wavfile, "rb") as f:
             data = f.read()
@@ -84,6 +84,7 @@ def translate_wavs(wavfile_list) -> list[str]:
         time.sleep(0.1)
 
     print('\n\nTips: Check log.txt for more infos')
+    return text_list
 
 init()
 if __name__ == '__main__':

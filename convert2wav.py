@@ -1,6 +1,7 @@
 import os, subprocess
+from Config import config
 
-thisdir = os.path.dirname(__file__)
+thisdir = config.get("DEFAULT", "thisdir")
 
 def convert2wav(input_file, output_dir = 'WavOutput', loglevel = 'info'):
     assert os.path.exists(input_file), f"No such file or directory: '{input_file}'"

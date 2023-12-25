@@ -1,10 +1,13 @@
 import csv, os, shutil
+from fuzzywuzzy import process
+from Config import config
 
-_thisdir = os.path.dirname(__file__)
-csv_file = 'index.csv'
-history_file = 'history.txt'
-newest = '0.10.2.38'
-tags = ['星绘', '玛德蕾娜', '白墨', '绯莎', '奥黛丽', '香奈美', '明', '令', '梅瑞狄斯', '拉薇', '心夏', '伊薇特', '信', '米雪儿', '系统语音', '香奈美系统语音', '其他', '未知', 'NEW']
+_thisdir = config.get("DEFAULT", "thisdir")
+newest = config.get("DEFAULT", "newest")
+history_file = config.get("csv_controller", "history_file")
+csv_file = config.get("csv_controller", "csv_file")
+tags = config.get("csv_controller", "tags")
+
 data_dict_sample = {
     'id' : {
         'tag': '星绘',
@@ -67,7 +70,7 @@ def checkout(data_dict:dict, oggfile_dir = os.path.join(_thisdir, '0.10.2.38'), 
 
     print(f'Total indexed {len(data_dict.keys())} ogg files.')
     if IND_ERROR == OGG_ERROR == 0:
-        print('Checked. No changes found.')
+        print('Checked. No mismatch found.')
         return True
     else:
         print(f'{OGG_ERROR} Ogg files not found.\n{IND_ERROR} Index not found.')
@@ -75,6 +78,12 @@ def checkout(data_dict:dict, oggfile_dir = os.path.join(_thisdir, '0.10.2.38'), 
 
 def get_ogg_file_by_id(id) -> str:
     return os.path.join(_thisdir, newest, id + '.ogg')
+
+def get_ogg_files_by_ids(ids:list) -> list[str]:
+    result = []
+    for id in ids:
+        result.append(os.path.join(_thisdir, newest, id + '.ogg'))
+    return result
 
 def get_ogg_files_by_tag(data_dict:dict, tag) -> list[str]:
     assert tag in tags
@@ -84,7 +93,19 @@ def get_ogg_files_by_tag(data_dict:dict, tag) -> list[str]:
             results.append(get_ogg_file_by_id(id))
     return results
 
-def modify_content(data_dict:dict, id, tag = None, text = None, imme_write = True):
+def get_items_by_text(data_dict:dict, text, tag = None, _threshold = 60) -> list[str]:
+    '''Return type: [('守护星芒', id)]'''
+    if tag == None or tag not in tags:
+        total_content = [(x['text'], id) for id, x in data_dict.items()]
+    else:
+        total_content = [(x['text'], id) for id, x in data_dict.items() if x['tag'] == tag]
+
+    matches = process.extract(text, total_content, limit=10)
+    results = [match[0] for match in matches if match[1] >= _threshold]
+    return results
+
+def modify_content_by_id(data_dict:dict, id, tag = None, text = None, imme_write = True) -> tuple:
+    '''Return type: (id, old tag, old text, tag, text)'''
     assert id in data_dict.keys()
     old_tag = data_dict[id]['tag']
     old_text = data_dict[id]['text']
@@ -98,10 +119,17 @@ def modify_content(data_dict:dict, id, tag = None, text = None, imme_write = Tru
         write_csv(data_dict)
     
     with open(os.path.join(_thisdir, history_file), 'a') as f:
-        f.write(f"id:{id}" + f"tag:{old_tag}-->{tag}" if tag != None else "" + f"text:{old_text}-->{text}" if text != None else "")
+        f.write(f"id:{id} " + f"tag:{old_tag}->{tag}" if tag != None else "" + f"text:{old_text}->{text}" if text != None else "")
 
+    return (id, old_tag, old_text, tag if tag != None else old_tag, text if text != None else old_text)
+
+def get_all_ogg_file() -> list[str]:
+    data_dict = read_csv()
+    checkout(data_dict)
+    return get_ogg_files_by_ids([id for id in data_dict.keys()])
 
 if __name__ == '__main__':
     data_dict = read_csv()
     checkout(data_dict, ign_ind=True)
+    get_items_by_text(data_dict, '甜品')
     
