@@ -1,6 +1,9 @@
 import csv, os, shutil
 from fuzzywuzzy import process
-from Config import config
+try:
+    from Config import config
+except:
+    from .Config import config
 
 _thisdir = config.get("DEFAULT", "thisdir")
 newest = config.get("DEFAULT", "newest")
@@ -93,15 +96,15 @@ def get_ogg_files_by_tag(data_dict:dict, tag) -> list[str]:
             results.append(get_ogg_file_by_id(id))
     return results
 
-def get_items_by_text(data_dict:dict, text, tag = None, _threshold = 60) -> list[str]:
-    '''Return type: [('守护星芒', id)]'''
+def get_items_by_text(data_dict:dict, text, tag = None, _threshold = 60) -> list[tuple]:
+    '''Return type: [('守护星芒', id, score)]'''
     if tag == None or tag not in tags:
         total_content = [(x['text'], id) for id, x in data_dict.items()]
     else:
         total_content = [(x['text'], id) for id, x in data_dict.items() if x['tag'] == tag]
 
     matches = process.extract(text, total_content, limit=10)
-    results = [match[0] for match in matches if match[1] >= _threshold]
+    results = [(match[0][0], match[0][1], match[1]) for match in matches if match[1] >= _threshold]
     return results
 
 def modify_content_by_id(data_dict:dict, id, tag = None, text = None, imme_write = True) -> tuple:

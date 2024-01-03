@@ -8,7 +8,7 @@ def init():
         "thisdir": os.path.dirname(os.path.dirname(__file__)),
         "newest": "0.10.2.38"
     }
-    config["csv_controller"] = {
+    config["csv_controller"] = { # type: ignore
         "csv_file": "index.csv",
         "history_file": "histroy.txt",
         "tags": ['星绘', '玛德蕾娜', '白墨', '绯莎', '奥黛丽', '香奈美', '明', '令', '梅瑞狄斯', '拉薇', '心夏', '伊薇特', '信', '米雪儿', '系统语音', '香奈美系统语音', '其他', '未知', 'NEW']

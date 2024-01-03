@@ -1,0 +1,72 @@
+{
+    "米雪儿·李": {
+        "url": "https://wiki.biligame.com/klbq/%E7%B1%B3%E9%9B%AA%E5%84%BF%C2%B7%E6%9D%8E",
+        "min_id": 0,
+        "max_id": 368
+    },
+    "信": {
+        "url": "https://wiki.biligame.com/klbq/%E4%BF%A1",
+        "min_id": 369,
+        "max_id": 558
+    },
+    "心夏": {
+        "url": "https://wiki.biligame.com/klbq/%E5%BF%83%E5%A4%8F",
+        "min_id": 559,
+        "max_id": 861
+    },
+    "伊薇特": {
+        "url": "https://wiki.biligame.com/klbq/%E4%BC%8A%E8%96%87%E7%89%B9",
+        "min_id": 862,
+        "max_id": 1049
+    },
+    "明": {
+        "url": "https://wiki.biligame.com/klbq/%E6%98%8E",
+        "min_id": 1050,
+        "max_id": 1238
+    },
+    "拉薇": {
+        "url": "https://wiki.biligame.com/klbq/%E6%8B%89%E8%96%87",
+        "min_id": 1239,
+        "max_id": 1547
+    },
+    "令": {
+        "url": "https://wiki.biligame.com/klbq/%E4%BB%A4",
+        "min_id": 1548,
+        "max_id": 1737
+    },
+    "香奈美": {
+        "url": "https://wiki.biligame.com/klbq/%E9%A6%99%E5%A5%88%E7%BE%8E",
+        "min_id": 1738,
+        "max_id": 1970
+    },
+    "梅瑞狄斯": {
+        "url": "https://wiki.biligame.com/klbq/%E6%A2%85%E7%91%9E%E7%8B%84%E6%96%AF",
+        "min_id": 1971,
+        "max_id": 2155
+    },
+    "星绘": {
+        "url": "https://wiki.biligame.com/klbq/%E6%98%9F%E7%BB%98",
+        "min_id": 2156,
+        "max_id": 2529
+    },
+    "奥黛丽": {
+        "url": "https://wiki.biligame.com/klbq/%E5%A5%A5%E9%BB%9B%E4%B8%BD",
+        "min_id": 2530,
+        "max_id": 2839
+    },
+    "白墨": {
+        "url": "https://wiki.biligame.com/klbq/%E7%99%BD%E5%A2%A8",
+        "min_id": 2840,
+        "max_id": 3031
+    },
+    "玛德蕾娜": {
+        "url": "https://wiki.biligame.com/klbq/%E7%8E%9B%E5%BE%B7%E8%95%BE%E5%A8%9C",
+        "min_id": 3032,
+        "max_id": 3333
+    },
+    "绯莎": {
+        "url": "https://wiki.biligame.com/klbq/%E7%BB%AF%E8%8E%8E",
+        "min_id": 3334,
+        "max_id": 3513
+    }
+}
